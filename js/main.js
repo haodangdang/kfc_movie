@@ -134,13 +134,13 @@
         },
         creatMa: function (ids) {
             if(ids.length > 0){
-                var maDom = ''
-                var maStr = ''
+                var maDom = '';
+                // var maStr = ''
                 for(var i = 0; i < ids.length; i++){
-                    maDom = maDom + '<div class="ma_item"><div class="ma_lbl">兑换码' + (i + 1) + '</div><div class="ma_txt">' + ids[i] + '</div></div>'
-                    maStr = maStr + '兑换码' + (i + 1) + ':' + ids[i] + ','
+                    maDom = maDom + '<p class="ma_item"><span class="ma_lbl">兑换码' + (i + 1) + '</span><span class="ma_txt">' + ids[i] + '</span></p>'
+                    // maStr = maStr + '兑换码' + (i + 1) + ':' + ids[i] + ','
                 }
-                 $('#ma').val(maStr)
+                 // $('#ma').val(maStr)
                 $('.ma_list').html(maDom)
             }
         },
@@ -156,7 +156,7 @@
             // document.execCommand("copy");
             // alert("已复制好，可贴粘。");
             var range = document.createRange();
-            range.selectNode(document.getElementById('ma'));
+            range.selectNode(document.getElementById('ma_list'));
             var selection = window.getSelection();
             if(selection.rangeCount > 0) selection.removeAllRanges();
             selection.addRange(range);

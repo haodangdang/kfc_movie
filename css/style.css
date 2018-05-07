@@ -363,10 +363,14 @@ a {
   padding-left: 30px;
 }
 .ma .ma_list .ma_item{
+  display: block;
   letter-spacing: 2px;
   font-size: 14px;
   color: #3e3143;
   margin-top: 28px;
+}
+.ma .ma_list .ma_item span{
+  display: block;
 }
 .ma .ma_list .ma_item .ma_txt{
   font-size: 16px;
