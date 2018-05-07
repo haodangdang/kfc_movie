@@ -141,6 +141,7 @@ a {
     background-image: url(../img/bg.jpg);
     background-size: cover;
     position: relative;
+    overflow: hidden;
 }
 .link{
   padding-left: 100px;
@@ -157,6 +158,9 @@ a {
   position: absolute;
   top: 0;
   left: 0;
+}
+.page{
+  z-index: 10;
 }
 
 .wrap img{
@@ -314,6 +318,8 @@ a {
 .p5_chakan{
   width: 100%;
   margin-top: 4%;
+  position: relative;
+  z-index: 10;
 }
 .p5_chakan .chakan_btn{
   width: 199px;
@@ -336,6 +342,7 @@ a {
 }
 .ma_wrap{
   background: rgba(0,0,0,0.5);
+  z-index: 11;
 }
 .ma{
   width: 306px;
@@ -391,6 +398,31 @@ a {
   height: 100%;
   position: relative;
   margin-top: 25px;
+}
+.err{
+  position: absolute;
+  height: 100px;
+  line-height: 100px;
+  color: #fff;
+  font-size: 18px;
+  width: 200px;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -100px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.9);
+  text-align: center;
+  opacity: 0;
+  -webkit-transition: opacity 500ms ease-out;
+  z-index: 0;
+}
+.err.show{
+  opacity: 1;
+  z-index: 10;
+}
+.ma_list_txt{
+  display: none;
 }
 /*.p1_guang{
   background-image: url(../img/p1_guang.png);
