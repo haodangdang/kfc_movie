@@ -61,7 +61,12 @@
                 dataType: 'json',
                 success: function (res) {
                     if(res.code === 0){
-                        self.showList()
+                        if(res.data.movie_ids != ''){
+                            self.creatMa(res.data.movie_ids.split(','))
+                            self.showPage(5)
+                        }else{
+                            self.showPage(4)
+                        }
                     }else{
                         self.showPage(1)
                     }
@@ -102,45 +107,42 @@
         getList: function (cnt) {
             var self = this;
             var url = 'http://kfc.it2048.cn/v0/get-tickets';
-            // $.ajax({
-            //     url: url,
-            //     type: 'POST',
-            //     data: {
-            //         cnt: cnt
-            //     },
-            //     dataType: 'json',
-            //     success: function (res) {
-            //         if(res.code == 0){
-            //             self.creatMa(res.data.movie_ids.split(','))
-            //             self.showPage(5)
-            //         }else{
-            //             self.showErr(res.msg)
-            //         }
-            //     },
-            //     error: function (res) {
-            //         self.showErr(res.msg)
-            //     }
-            // });
-            var res = {
-                "code": 0,
-                "msg": "成功",
-                "data": {
-                    "movie_ids": "12345678,abcd1234"
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    cnt: cnt
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if(res.code == 0){
+                        self.creatMa(res.data.movie_ids.split(','))
+                        self.showPage(5)
+                    }else{
+                        self.showErr(res.msg)
+                    }
+                },
+                error: function (res) {
+                    self.showErr(res.msg)
                 }
-            }
+            });
+            // var res = {
+            //     "code": 0,
+            //     "msg": "成功",
+            //     "data": {
+            //         "movie_ids": "12345678,abcd1234"
+            //     }
+            // }
 
-            self.creatMa(res.data.movie_ids.split(','))
-            self.showPage(5)
+            // self.creatMa(res.data.movie_ids.split(','))
+            // self.showPage(5)
         },
         creatMa: function (ids) {
             if(ids.length > 0){
                 var maDom = '';
-                // var maStr = ''
                 for(var i = 0; i < ids.length; i++){
                     maDom = maDom + '<p class="ma_item"><span class="ma_lbl">兑换码' + (i + 1) + '</span><span class="ma_txt">' + ids[i] + '</span></p>'
-                    // maStr = maStr + '兑换码' + (i + 1) + ':' + ids[i] + ','
                 }
-                 // $('#ma').val(maStr)
                 $('.ma_list').html(maDom)
             }
         },
@@ -151,10 +153,6 @@
             $('.ma_wrap').addClass('hidden')
         },
         copy: function () {
-            // var ma_txt = document.getElementById("ma");
-            // ma_txt.select();
-            // document.execCommand("copy");
-            // alert("已复制好，可贴粘。");
             var range = document.createRange();
             range.selectNode(document.getElementById('ma_list'));
             var selection = window.getSelection();
