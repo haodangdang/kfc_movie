@@ -1,9 +1,22 @@
 !(function () {
     var kfc = {
         hasLogin: false,
+        cnt: null,
+        name: null,
         init: function () {
-            this.getLogin()
-            this.bindEvent()
+            var queryArr = location.search && location.search.replace('?','').split('&');
+            var query = {}
+            if(queryArr.length > 0){
+                for(var j = 0; j < queryArr.length; j++){
+                    var key = queryArr[j].split('=')[0]
+                    var val = queryArr[j].split('=')[1]
+                    query[key] = val
+                }
+                this.toParent(query)
+            }else{
+                this.getLogin()
+                this.bindEvent()
+            }
         },
         bindEvent: function () {
             var self = this;
@@ -39,6 +52,13 @@
             $('.copy_btn').on('click', function () {
                 self.copy()
             });
+            $('.share_btn').on('click', function () {
+                self.share()
+            });
+            $('.close_share').on('click', function () {
+                self.closeShare()
+            });
+
         },
         showPage: function (index) {
             $('.page').addClass('hidden');
@@ -62,7 +82,7 @@
                 success: function (res) {
                     if(res.code === 0){
                         if(res.data.movie_ids != ''){
-                            self.creatMa(res.data.movie_ids.split(','))
+                            self.creatMa(res.data)
                             self.showPage(5)
                         }else{
                             self.showPage(4)
@@ -90,7 +110,7 @@
                 success: function (res) {
                     if(res.code == 0){
                         if(res.data.movie_ids != ''){
-                            self.creatMa(res.data.movie_ids.split(','))
+                            self.creatMa(res.data)
                             self.showPage(5)
                         }else{
                             self.showPage(4)
@@ -116,8 +136,8 @@
                 dataType: 'json',
                 success: function (res) {
                     if(res.code == 0){
-                        self.creatMa(res.data.movie_ids.split(','))
-                        self.showPage(5)
+                        self.creatMa(res.data);
+                        self.showPage(5);
                     }else{
                         self.showErr(res.msg)
                     }
@@ -130,20 +150,29 @@
             //     "code": 0,
             //     "msg": "成功",
             //     "data": {
-            //         "movie_ids": "12345678,abcd1234"
+            //         "movie_ids": "12345678, abcd1234",
+            //         "name": "李平"
             //     }
             // }
 
-            // self.creatMa(res.data.movie_ids.split(','))
+            // self.creatMa(res.data)
             // self.showPage(5)
         },
-        creatMa: function (ids) {
-            if(ids.length > 0){
+        creatMa: function (data) {
+            var self = this;
+            var ids = data.movie_ids.split(',');
+            self.name = data.name;
+            var id_length = ids.length;
+            self.cnt = id_length;
+            if(id_length > 0){
                 var maDom = '';
-                for(var i = 0; i < ids.length; i++){
+                for(var i = 0; i < id_length; i++){
                     maDom = maDom + '<p class="ma_item"><span class="ma_lbl">兑换码' + (i + 1) + '</span><span class="ma_txt">' + ids[i] + '</span></p>'
                 }
-                $('.ma_list').html(maDom)
+                $('.ma_list').html(maDom);
+                $('.xin_title img').attr('src', 'img/p5_title_' + id_length + '.png');
+                $('.xin img').attr('src', 'img/p5_xin_' + id_length + '.png');
+                $('.name').html(self.name);
             }
         },
         showMa: function () {
@@ -160,6 +189,34 @@
             selection.addRange(range);
             document.execCommand('copy');
             this.showErr("已复制好，可贴粘");
+        },
+        toParent: function (query) {
+            var name = query.name;
+            var cnt = query.cnt;
+            $('.xin_title img').attr('src', 'img/p5_title_' + cnt + '.png');
+            $('.xin img').attr('src', 'img/p5_xin_' + cnt + '.png');
+            $('.name').html(decodeURIComponent(name));
+            $('.chakan_btn').addClass('hidden');
+            $('.share_btn').addClass('hidden');
+            this.showPage(5);
+        },
+        share: function () {
+            var self = this;
+            var state = {
+                title: '',
+                url: window.location.href
+            };
+            history.pushState(state, '' ,'index.html?name=' + self.name + '&cnt=' + self.cnt);
+            $('.share_wrap').removeClass('hidden')
+        },
+        closeShare: function () {
+            var self = this;
+            var state = {
+                title: '',
+                url: window.location.href
+            };
+            history.pushState(state, '' ,'index.html');
+            $('.share_wrap').addClass('hidden')
         }
     }
     kfc.init()

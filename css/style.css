@@ -202,7 +202,9 @@ a {
 .btn img{
   height: 100%;
 }
-
+.p2_top img{
+  height: auto;
+}
 .p2_img{
   opacity: 0;
   -webkit-animation: fadeInOut 2s ease-out 1;
@@ -228,6 +230,9 @@ a {
 .p2_img.img_5{
   animation-delay:9s;
   -webkit-animation-delay:9s;
+}
+.p3_top img{
+  height: auto;
 }
 .p3_form{
   position: absolute;
@@ -262,6 +267,9 @@ a {
 .p3_form .form .ipt.ipt_id{
   margin-top: 50px;
 }
+.p4_top img{
+  height: auto;
+}
 .p4_ticket{
   position: absolute;
   width: 100%;
@@ -287,6 +295,9 @@ a {
 .get_btn img{
   width: 100%;
 }
+.p5_top img{
+  height: auto;
+}
 .p5_bottom{
   position: absolute;
   width:100%;
@@ -298,10 +309,10 @@ a {
 }
 .p5_title{
   width: 100%;
-  margin-top: 14%;
+  margin-top: 60px;
 }
 .p5_title .title{
-  width: 283px;
+  width: 314px;
   margin: 0 auto;
 }
 .p5_title img{
@@ -336,19 +347,51 @@ a {
 .p5_xin .xin{
   width: 310px;
   margin: 0 auto;
+  position: relative;
 }
 .p5_xin .xin img{
   width: 100%;
+}
+.name{
+    position: absolute;
+    right: 26%;
+    bottom: 30%;
+    color: #b89783;
+    font-size: 16px;
+    letter-spacing: 4px;
 }
 .ma_wrap{
   background: rgba(0,0,0,0.5);
   z-index: 11;
 }
+.share_wrap{
+  background: rgba(0,0,0,0.7);
+  z-index: 11;
+}
+.share{
+  width: 260px;
+  height: 118px;
+  margin: 0 auto;
+  margin-top: 40px;
+  position: relative;
+}
+.close_share{
+  width: 32px;
+  height: 32px;
+  margin: 0 auto;
+  margin-top: 40px;
+  position: relative;
+}
+.close_share img{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
 .ma{
   width: 306px;
   height: 304px;
   margin: 0 auto;
-  margin-top: 36%;
+  margin-top: 30%;
   position: relative;
 }
 .ma img{
@@ -389,10 +432,10 @@ a {
   top: 0;
   left: 0;
 }
-.ma_copy{
+.ma_copy, .ma_share{
   width: 100%;
 }
-.ma_copy .copy_btn{
+.ma_copy .copy_btn, .ma_share .share_btn{
   width: 199px;
   height:44px;
   margin: 0 auto;
@@ -402,6 +445,15 @@ a {
   height: 100%;
   position: relative;
   margin-top: 25px;
+}
+.ma_share .share_btn img{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.ma_share{
+  position: absolute;
+  bottom: 4%;
 }
 .err{
   position: absolute;
