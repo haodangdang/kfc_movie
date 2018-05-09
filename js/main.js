@@ -12,7 +12,13 @@
                     var val = queryArr[j].split('=')[1]
                     query[key] = val
                 }
-                this.toParent(query)
+                if(query.name && query.cnt){
+                    this.toParent(query)
+                }else{
+                    this.getLogin()
+                    this.bindEvent()
+                }
+
             }else{
                 this.getLogin()
                 this.bindEvent()
