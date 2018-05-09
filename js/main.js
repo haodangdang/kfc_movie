@@ -4,25 +4,8 @@
         cnt: null,
         name: null,
         init: function () {
-            var queryArr = location.search && location.search.replace('?','').split('&');
-            var query = {}
-            if(queryArr.length > 0){
-                for(var j = 0; j < queryArr.length; j++){
-                    var key = queryArr[j].split('=')[0]
-                    var val = queryArr[j].split('=')[1]
-                    query[key] = val
-                }
-                if(query.name && query.cnt){
-                    this.toParent(query)
-                }else{
-                    this.getLogin()
-                    this.bindEvent()
-                }
-
-            }else{
-                this.getLogin()
-                this.bindEvent()
-            }
+            this.getLogin()
+            this.bindEvent()
         },
         bindEvent: function () {
             var self = this;
@@ -60,9 +43,6 @@
             });
             $('.share_btn').on('click', function () {
                 self.share()
-            });
-            $('.close_share').on('click', function () {
-                self.closeShare()
             });
 
         },
@@ -132,37 +112,26 @@
         },
         getList: function (cnt) {
             var self = this;
-            var url = 'http://kfc.it2048.cn/v0/get-tickets';
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: {
-                    cnt: cnt
-                },
-                dataType: 'json',
-                success: function (res) {
-                    if(res.code == 0){
-                        self.creatMa(res.data);
-                        self.showPage(5);
-                    }else{
-                        self.showErr(res.msg)
-                    }
-                },
-                error: function (res) {
-                    self.showErr(res.msg)
-                }
-            });
-            // var res = {
-            //     "code": 0,
-            //     "msg": "成功",
-            //     "data": {
-            //         "movie_ids": "12345678, abcd1234",
-            //         "name": "李平"
+            // var url = 'http://kfc.it2048.cn/v0/get-tickets';
+            // $.ajax({
+            //     url: url,
+            //     type: 'POST',
+            //     data: {
+            //         cnt: cnt
+            //     },
+            //     dataType: 'json',
+            //     success: function (res) {
+            //         if(res.code == 0){
+            //             self.creatMa(res.data);
+            //             self.showPage(5);
+            //         }else{
+            //             self.showErr(res.msg)
+            //         }
+            //     },
+            //     error: function (res) {
+            //         self.showErr(res.msg)
             //     }
-            // }
-
-            // self.creatMa(res.data)
-            // self.showPage(5)
+            // });
         },
         creatMa: function (data) {
             var self = this;
@@ -179,6 +148,7 @@
                 $('.xin_title img').attr('src', 'img/p5_title_' + id_length + '.png');
                 $('.xin img').attr('src', 'img/p5_xin_' + id_length + '.png');
                 $('.name').html(self.name);
+                $('.share_btn').attr('href', 'share.html?name=' + self.name + '&cnt=' + self.cnt)
             }
         },
         showMa: function () {
@@ -207,13 +177,9 @@
             this.showPage(5);
         },
         share: function () {
-            var self = this;
-            var state = {
-                title: '',
-                url: window.location.href
-            };
-            history.pushState(state, '' ,'index.html?name=' + self.name + '&cnt=' + self.cnt);
-            $('.share_wrap').removeClass('hidden')
+            var origin = window.location.origin;
+            var pathname = window.location.pathname;
+            // window.location.href =
         },
         closeShare: function () {
             var self = this;
