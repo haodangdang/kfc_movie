@@ -112,26 +112,26 @@
         },
         getList: function (cnt) {
             var self = this;
-            // var url = 'http://kfc.it2048.cn/v0/get-tickets';
-            // $.ajax({
-            //     url: url,
-            //     type: 'POST',
-            //     data: {
-            //         cnt: cnt
-            //     },
-            //     dataType: 'json',
-            //     success: function (res) {
-            //         if(res.code == 0){
-            //             self.creatMa(res.data);
-            //             self.showPage(5);
-            //         }else{
-            //             self.showErr(res.msg)
-            //         }
-            //     },
-            //     error: function (res) {
-            //         self.showErr(res.msg)
-            //     }
-            // });
+            var url = 'http://kfc.it2048.cn/v0/get-tickets';
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    cnt: cnt
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if(res.code == 0){
+                        self.creatMa(res.data);
+                        self.showPage(5);
+                    }else{
+                        self.showErr(res.msg)
+                    }
+                },
+                error: function (res) {
+                    self.showErr(res.msg)
+                }
+            });
         },
         creatMa: function (data) {
             var self = this;
